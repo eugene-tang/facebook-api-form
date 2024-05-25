@@ -20,5 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function submitForm(event) {
   event.preventDefault();
-  alert('Form submitted!');
+
+  FB.login(function(response) {
+    if (response.authResponse) {
+      let accessToken = response.authResponse.accessToken;
+      let query = document.getElementById('query').value;
+
+      console.log("Login successful");
+    } else {
+      alert('User cancelled login or did not fully authorise.');
+    }
+  }, {scope: 'publish_actions'});
 }
