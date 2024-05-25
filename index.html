@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gigs Information Form</title>
-</head>
-<body>
-  <h1>Gigs Information Form</h1>
-  <form id="apiForm" onsubmit="submitForm(event); return false;">
-    <label for="query">Enter Query:</label>
-    <input type="text" id="query" name="query" required>
-    <button type="submit">Submit</button>
-  </form>
-  <script defer src="script.js"></script>
-  <div
-    class="fb-like"
-    data-share="true"
-    data-width="450"
-    data-show-faces="true">
-  </div>
-</body>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '408342358854411',
-      xfbml      : true,
-      version    : 'v20.0'
-    });
-    FB.AppEvents.logPageView();
-  };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
+<head></head>
+
+<body>
+
+  <h2>Add Facebook Login to your webpage</h2>
+
+  <p id="profile"></p>
+
+  <script>
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk')
+    );
+
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '408342358854411',
+        xfbml: true,
+        version: 'v20.0'
+      });
+      FB.login(function (response) {
+        if (response.authResponse) {
+          console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me', { fields: 'name, email' }, function (response) {
+            document.getElementById("profile").innerHTML = "Good to see you, " + response.name + ". i see your email address is " + response.email
+          });
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      });
+    };
+
+  </script>
+
+</body>
+
 </html>
