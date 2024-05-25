@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
       appId      : '408342358854411',
       cookie     : true,
       xfbml      : true,
-      version    : 'v12.0'
+      version    : 'v20.0'
     });
     console.log('Facebook SDK initialized');
   };
